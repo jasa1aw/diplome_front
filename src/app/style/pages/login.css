@@ -1,0 +1,65 @@
+.login-page{
+    display: flex;
+    align-items: center;
+    gap: 250px;
+}
+.leftImg{
+    width: 900px;
+    height: 908px;
+}
+.regLink{
+    font-size: 16px;
+    color: #38CB89;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+}
+.form h1{
+    color: #141718;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.form p{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6C7275;
+    font-size: 16px;
+    margin: 24px 0 32px;
+}
+.input{
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 400;
+    color: #141718;
+}
+.input::placeholder{
+    color: #6C7275;
+}
+
+.inputBox, .passwordBox{
+    width: 456px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #E8ECEF;
+}
+.inputBox{
+    margin-bottom: 32px;
+}
+.passwordBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.form button{
+    width: 456px;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 500;
+}
