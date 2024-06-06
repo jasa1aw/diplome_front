@@ -1,8 +1,7 @@
 'use client'
-import { useRouter } from 'next/navigation';
 import Registration from '@/components/auth/registration';
 
-export default function Home() {
+export default function SignUp() {
   // const isAuth = useSelector((state) => state.auth.isAuth)
   // const router = useRouter()
   // useEffect(() => {
@@ -10,6 +9,7 @@ export default function Home() {
   // },[isAuth])
   return (
     <>
+      {/* <Header/> */}
       <Registration/>
     </>
   )

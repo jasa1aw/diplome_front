@@ -1,6 +1,11 @@
 
-body{
-    position: relative;
+html, body{
+    height: 100% !important;
+}
+.container{
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
 }
 .img{
     width: 100%;

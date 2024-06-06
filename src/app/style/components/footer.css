@@ -1,0 +1,30 @@
+footer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 180px;
+    background-color: #141718;
+}
+.leftSection{
+    display: flex;
+    align-items: center;
+}
+footer h4{
+    font-size: 24px;
+    font-weight: 500;
+    color: #fff;
+    border-right: 1px solid #6C7275;
+    padding-right: 30px;
+}
+footer p{
+    color: #fff;
+    padding-left: 30px;
+}
+
+.contactLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}

@@ -1,0 +1,48 @@
+.cardContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 50px 0;
+}
+
+
+.cardImg{
+    width: 300px;
+    height: 370px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+.cardImg button{
+    position: absolute;
+    bottom: 0px;
+    width: 200px;
+    padding: 12px;
+    opacity: 0;
+    transition: .3s;
+    background-color: #000;
+    color: #fff;
+}
+.cardImg:hover button{
+    opacity: 1;
+    bottom: 20px;
+}
+
+.cardDescription{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.cardDescription h4{
+    font-size: 20px;
+    font-weight: 500;
+    color: #141718;
+}
+.cardDescription p{
+    font-size: 16px;
+    font-weight: 500;
+    color: #141718;
+}

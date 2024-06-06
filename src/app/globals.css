@@ -1,3 +1,9 @@
 @import url(style/vendor/reset.css);
 @import url(style/vendor/base.css);
 @import url(style/pages/login.css);
+@import url(style/pages/main.css);
+@import url(style/components/header.css);
+@import url(style/components/footer.css);
+@import url(style/components/card.css);
+@import url(style/pages/checkout.css);
+@import url(style/pages/adminPage.css);

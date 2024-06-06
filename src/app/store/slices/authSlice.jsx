@@ -1,13 +1,15 @@
+
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 import { END_POINT } from '@/config/end_point';
 import { jwtDecode } from 'jwt-decode';
 
-const token = localStorage.getItem("token")
+const token = typeof window !== "undefined" ? localStorage.getItem("token") : null
 let initialState = {
     isAuth: false,
     currentUser: null,
-    tokenExt: 0
+    tokenExt: 0, 
+    error: null
 }
 console.log(token);
 
@@ -20,8 +22,7 @@ if (token) {
                 id: decodedToken.id,
                 email: decodedToken.email,
                 full_name: decodedToken.full_name,
-                username: decodedToken.username,
-                phone: decodedToken.phone
+                isAdmin: true,
             },
             tokenExt: decodedToken.exp
         }
@@ -40,14 +41,12 @@ export const authSlice = createSlice({
             localStorage.setItem('token', action.payload.token)
             const decoded = jwtDecode(action.payload.token)
             state.currentUser = {
-                id: decoded.id,
-                email: decoded.email,
-                full_name: decoded.full_name,
-                username: decoded.username,
-                phone: decoded.phone,
+                id: decodedToken.id,
+                email: decodedToken.email,
+                full_name: decodedToken.full_name,
+                isAdmin: true,
             }
             state.isAuth = true;
-
             state.tokenExt = decoded.exp
         },
         logOut: (state) => {
@@ -55,29 +54,37 @@ export const authSlice = createSlice({
             state.currentUser = {};
             state.tokenExt = 0
             localStorage.removeItem("token")
+        },
+        setError: (state, action) => {
+            state.error = action.payload
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { authorize, logOut } = authSlice.actions
+export const { authorize, logOut, setError } = authSlice.actions
 
-export const SignUp = (email, full_name, username, password) => (dispatch) => {
-    axios.post(`${END_POINT}/api/auth/signup`, {
+export const SignUp = (email, full_name, password) => (dispatch) => {
+    axios.post(`${END_POINT}/api/auth/registration`, {
         email,
         full_name,
-        username,
         password
     })
 }
 
 export const LogIn = (email, password) => (dispatch) => {
-    axios.post(`${END_POINT}/api/auth/signin`, {
+    axios.post(`${END_POINT}/api/auth/login`, {
         email,
         password
     }).then(res => {
         // console.log(res.data);
         dispatch(authorize(res.data))
+        // router.push('/main/')
+    }).catch(e => {
+        // console.error(e.response.data)
+        if (e.response && e.response.data && e.response.data.message) {
+            dispatch(setError(e.response.data.message));
+        }
     })
 }
 
