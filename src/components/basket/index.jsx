@@ -51,14 +51,20 @@ function CartPage() {
         `;
 
         const encodedMessage = encodeURIComponent(message);
-        // 7 778 620 0395
         const whatsappUrl = `https://api.whatsapp.com/send?phone=77786200395&text=${encodedMessage}`;
 
-        window.open(whatsappUrl, '_blank');
-        alert('Сообщение отправлено');
-        dispatch(clearCart());
-        setStep(1)
+        // window.open(whatsappUrl, '_blank');
+        // alert('Сообщение отправлено');
+        // dispatch(clearCart());
+        // setStep(1)
         // router.push('/main')
+        setTimeout(() => {
+            window.open(whatsappUrl, '_blank');
+            alert('Сообщение отправлено');
+            dispatch(clearCart());
+            setStep(1);
+            // router.push('/main'); // Uncomment if needed
+        }, 100);
     };
     const emptyBasket = () => {
         router.push("/main")
