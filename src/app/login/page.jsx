@@ -2,33 +2,36 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-regular-svg-icons";
 import Link from 'next/link';
-import { useState } from "react";
+import { useState,  useEffect} from "react";
 import { useRouter } from 'next/navigation';
-// import { useDispatch, useSelector } from "react-redux";
-// import {setError, LogIn} from "@/app/store/slices/authSlice"
+import { useDispatch, useSelector } from "react-redux";
+import {setError, LogIn} from "@/app/store/slices/authSlice"
 export default function Login(){
-    // const error = useSelector(state => state.auth.error);
+    const currentUser = useSelector(state => state.auth.currentUser);
+    const error = useSelector(state => state.auth.error);
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const router = useRouter()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [visible, setVisible] = useState(false);
-        
-    // const SignIn = () => {
-    //     if(email.length > 0 && password.length > 0){
-    //         // dispatch(LogIn(email,password));
-    //         router.push('/main')
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         router.push('/main');
     //     }
-    // }
+    // }, [currentUser, router]);
+        
     const SignIn = () => {
-        router.push('/main')
+        if(email.length > 0 && password.length > 0){
+            dispatch(LogIn(email,password));
+            router.push('/')
+        }
     }
     return(
         <section className="login-page">
             <div className="leftImg">
-                <img className="imgFit" src="/img/login.svg" alt="not found" />
+                <img className="imgFit" src="/img/bg_login3.jpg" alt="not found" />
             </div>
             <div className="form">
                 <h1>Вход</h1>
@@ -38,7 +41,7 @@ export default function Login(){
                     <input type={visible ? 'text' : 'password'} className="input passwordInput" placeholder="Введите пароль" value={password} onChange={(e) => setPassword(e.target.value)}/>
                     {visible ? <FontAwesomeIcon icon={faEyeSlash} style={{color: "#6C7275", height: "21px", cursor: "pointer"}} onClick={() => setVisible(false)}/> : <FontAwesomeIcon icon={faEye} style={{color: "#6C7275", height: "21px", cursor: "pointer"}}  onClick={() => setVisible(true)}/> }
                 </div>
-                {/* {error && <span>{error}</span>} */}
+                {error && <span>{error}</span>}
                 <button className="button" onClick={SignIn}>Вход</button>
             </div>
         </section>

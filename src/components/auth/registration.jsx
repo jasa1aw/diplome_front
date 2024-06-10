@@ -4,12 +4,12 @@ import {faEye, faEyeSlash} from "@fortawesome/free-regular-svg-icons";
 import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
-// import { useDispatch, useSelector } from "react-redux";
-// import { logOut, SignUp, authorize } from "@/app/store/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut, SignUp, authorize } from "@/app/store/slices/authSlice";
 
 export default function Registration(){
-    // const isAuth = useSelector((state) => state.auth.isAuth)
-    // const dispatch = useDispatch()
+    const isAuth = useSelector((state) => state.auth.isAuth)
+    const dispatch = useDispatch()
     const router = useRouter()
     // w664Lod-
     const [email, setEmail] = useState("");
@@ -27,37 +27,34 @@ export default function Registration(){
         return passwordRegex.test(str);
     }
     
-    // const Register = () => {
-    //     if(email.length > 0 && full_name.length > 0 && password.length > 0){
-    //         if(!validateEmail(email)){
-    //             setError("Неверный электронный адрес")
-    //             setEmail('')
-    //             setPassword('')
-    //         }else if(!validatePassword(password)){
-    //             setError("Ненадежный пароль")
-    //             setEmail('')
-    //             setPassword('')
-    //         }else{
-    //             setError('')
-    //             dispatch(SignUp(email, full_name, password));
-    //             router.push('/login')
-    //         }
-    //     }
-    // }
     const Register = () => {
-        router.push('/login')
+        if(email.length > 0 && full_name.length > 0 && password.length > 0){
+            if(!validateEmail(email)){
+                setError("Неверный электронный адрес")
+                setEmail('')
+                setPassword('')
+            }else if(!validatePassword(password)){
+                setError("Ненадежный пароль")
+                setEmail('')
+                setPassword('')
+            }else{
+                setError('')
+                dispatch(SignUp(email, full_name, password));
+                router.push('/login')
+            }
+        }
     }
 
 
-    // useEffect(() => {
-    //     if(isAuth) router.push('/main')
-    //     // else dispatch(logOut());    
-    // }, [isAuth])
+    useEffect(() => {
+        if(isAuth) router.push('/main')
+        else dispatch(logOut());    
+    }, [isAuth])
     
     return(
         <section className="login-page">
             <div className="leftImg">
-                <img className="imgFit" src="/img/login.svg" alt="not found" />
+                <img className="imgFit" src="/img/bg_login.webp" alt="not found" />
             </div>
             <div className="form">
                 <h1>Регистрация</h1>

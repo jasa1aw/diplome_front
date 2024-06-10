@@ -6,6 +6,7 @@ export const productSlice = createSlice({
     name:"product",
     initialState:{
         products:[],
+        loading: false,
     },
     reducers:{
         setProducts:(state,action) => {
@@ -18,19 +19,34 @@ export const productSlice = createSlice({
             let products = [...state.products]
             products = products.filter(item => item.id !== action.payload)
         },
+        setLoading: (state, action) => {
+            state.loading = action.payload;
+        },
     }
 })
-export const {setProducts, appendProducts, handleDeletedProduct} = productSlice.actions
+export const {setProducts, appendProducts, handleDeletedProduct, setLoading} = productSlice.actions
 
 
 
-export const getProducts = () => async(dispatch) =>{
+// export const getProducts = () => async(dispatch) =>{
+//     try {
+//         const res = await axios.get(`${END_POINT}/api/product/getAllProducts`)
+//         dispatch(setProducts({products:res.data}))
+//         // console.log('res' + res);
+//     } catch (error) {
+//         alert("Ошибка при запросе post")
+//     }
+// }
+
+export const getProducts = () => async (dispatch) => {
     try {
-        const res = await axios.get(`${END_POINT}/api/product/getAllProducts`)
-        dispatch(setProducts({products:res.data}))
-        // console.log('res' + res);
+        dispatch(setLoading(true));
+        const res = await axios.get(`${END_POINT}/api/product/getAllProducts`);
+        dispatch(setProducts({ products: res.data }));
+        dispatch(setLoading(false));
     } catch (error) {
-        alert("Ошибка при запросе post")
+        dispatch(setLoading(false));
+        alert("Ошибка при запросе post");
     }
 }
 

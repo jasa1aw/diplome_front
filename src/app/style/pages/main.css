@@ -15,10 +15,11 @@
     color: #141718;
 }
 .home{
-    background-image: url('/img/home.svg');
+    background-image: url('/img/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    width: 1540px;
+    background-position: center;
+    width: 1440px;
     height: 540px;
     display: flex;
     flex-direction: column;
@@ -28,10 +29,12 @@
 }
 .home h1{
     font-size: 54px;
-    font-weight: 500;
+    font-weight: 700;
+    margin-top: 130px;
     margin-bottom: 20px;
 }
 .home p{
     font-size: 18px;
+    font-weight: 500;
 }
 

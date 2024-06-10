@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeProduct, updateProductQuantity, clearCart } from "@/app/store/slices/cartSlice";
 import { useRouter } from "next/navigation";
 import { END_POINT } from "@/config/end_point";
+
 function CartPage() {
     const [step, setStep] = useState(1);
     const cartItems = useSelector((state) => state.cart.selectedProducts);
+    const isAuth = useSelector((state) => state.auth.isAuth)// Assuming you have this selector
+    // const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn); // Assuming you have this selector
     const dispatch = useDispatch();
-    const router = useRouter()
+    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [contactDetails, setContactDetails] = useState({
         firstName: '',
@@ -23,7 +26,7 @@ function CartPage() {
 
     useEffect(() => {
         const fetchData = async () => {
-            // Симулируем задержку для имитации процесса загрузки
+            // Simulate a delay to mimic the loading process
             await new Promise(resolve => setTimeout(resolve, 1000));
             setLoading(false);
         };
@@ -56,19 +59,27 @@ function CartPage() {
         window.open(whatsappUrl, '_blank');
         alert('Сообщение отправлено');
         dispatch(clearCart());
-        setStep(1)
-        router.push('/main')
+        setStep(1);
+        router.push('/main');
         setTimeout(() => {
             window.open(whatsappUrl, '_blank');
             alert('Сообщение отправлено');
             dispatch(clearCart());
             setStep(1);
-            // router.push('/main'); // Uncomment if needed
         }, 100);
     };
+
+    const handleProceedToCheckout = () => {
+        if (isAuth) {
+            setStep(2);
+        } else {
+            router.push('/login');
+        }
+    };
+
     const emptyBasket = () => {
-        router.push("/main")
-    }
+        router.push("/main");
+    };
 
     if (loading) {
         return (
@@ -78,7 +89,8 @@ function CartPage() {
             </section>
         );
     }
-    return(
+
+    return (
         <main className="container">
             <Header/>
             {step === 1 && 
@@ -124,7 +136,7 @@ function CartPage() {
                                     <h3>Итог:</h3>
                                     <h3>{total} &#8376;</h3>
                                 </div>
-                                <button className="button" onClick={() => setStep(2)}>Продолжить</button>
+                                <button className="button" onClick={handleProceedToCheckout}>Продолжить</button>
                             </> 
                             :
                             <>

@@ -7,34 +7,41 @@
     margin: 50px 0;
 }
 
+.cardItem{
+    display: flex;
+    flex-direction: column;
+}
 
 .cardImg{
     width: 300px;
     height: 370px;
-    position: relative;
     display: flex;
     justify-content: center;
     margin-bottom: 12px;
 }
-.cardImg button{
-    position: absolute;
-    bottom: 0px;
-    width: 200px;
-    padding: 12px;
-    opacity: 0;
-    transition: .3s;
-    background-color: #000;
-    color: #fff;
+.addBasket{
+    width: 100%;
 }
-.cardImg:hover button{
-    opacity: 1;
-    bottom: 20px;
+.editProduct{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
+.editProduct > button{
+    width: calc(50% + 5px);
+    height: 40px;
+    font-size: 16px;
+    padding: 0;
+}
+
 
 .cardDescription{
     display: flex;
     flex-direction: column;
     gap: 5px;
+    margin-bottom: 10px;
 }
 .cardDescription h4{
     font-size: 20px;

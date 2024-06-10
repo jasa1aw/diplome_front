@@ -1,23 +1,27 @@
 'use client'
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-// import { createProduct } from '../store/slices/productSlice';
-// import { createProduct } from '@/store/slices/productSlice';
+import { redirect } from 'next/navigation';
+import { createProduct } from '../store/slices/productSlice';
 
 export default function Admin() {
-    // const currentUser = useSelector(state => state.auth.currentUser);
-    
+    const currentUser = useSelector(state => state.auth.currentUser);
+    // const [isClient, setIsClient] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
-    // if (!currentUser || !currentUser.isAdmin) {
-    //     // Если не админ, перенаправляем на другую страницу (например, на домашнюю страницу)
-    //     router.push('/')
-    // }else if(currentUser){
-    //     router.push('/main')
-    // }
+    useEffect(() => {  // Log the currentUser object to see its properties
+        if (!currentUser) {
+            // If there is no current user, redirect to home
+            redirect('/login');
+        } else if (!currentUser.isAdmin) {
+            // If the current user is not an admin, redirect to home
+            redirect('/');
+        }
+    }, [currentUser, router]);
+    
 
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -37,12 +41,13 @@ export default function Admin() {
         form.append('image', selectedFile);
         form.append('name', name)
         form.append('price', price)
-        // dispatch(createProduct(form))
+        dispatch(createProduct(form))
         router.push('/main')
     }
+    if(!currentUser) return null
     return (
         <section className="container">
-            <Header />
+            <Header/>
             <section className="adminDashboard">
                 <h1>Добавление товара</h1>
                 <div className="adminCardContainer">

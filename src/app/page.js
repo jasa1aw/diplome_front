@@ -1,16 +1,94 @@
-'use client'
-import Registration from '@/components/auth/registration';
+'use client';
+import Card from "@/components/card";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import {useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "@/app/store/slices/productSlice";
+import { logOut } from "@/app/store/slices/authSlice";
+import { jwtDecode } from 'jwt-decode';
+import { useRouter } from "next/navigation";
 
-export default function SignUp() {
-  // const isAuth = useSelector((state) => state.auth.isAuth)
-  // const router = useRouter()
-  // useEffect(() => {
-  //   if(isAuth) router.push("/resumes")
-  // },[isAuth])
-  return (
-    <>
-      {/* <Header/> */}
-      <Registration/>
-    </>
-  )
+export default function Home(){
+    const products = useSelector((state) => state.product.products);
+    const loading = useSelector((state) => state.product.loading);
+    
+    const [visibleProducts, setVisibleProducts] = useState([]);
+    const [next, setNext] = useState(8);
+    const [load, setLoad] = useState(true)
+    
+    
+    const didMount = () => {
+        dispatch(getProducts())
+    }
+    useEffect(didMount, [])
+
+    useEffect(() => {
+        setVisibleProducts(products.slice(0, next));
+    }, [products, next]);
+    
+    const dispatch = useDispatch();
+    const router = useRouter()
+
+    useEffect(() => {
+        const token = typeof window !== "undefined" ? localStorage.getItem('token') : null;
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            if (decodedToken.exp * 1000 < Date.now()) {
+                dispatch(logOut());
+            }
+        }
+        const interval = setInterval(() => {
+            const token = typeof window !== "undefined" ? localStorage.getItem('token') : null
+            if (token) {
+                const decodedToken = jwtDecode(token);
+                if (decodedToken.exp * 1000 < Date.now()) {
+                    dispatch(logOut());
+                }
+            }
+        }, 60000); // Check every 60 seconds
+
+        return () => clearInterval(interval);
+    }, [dispatch, router]);
+
+    const loadMore = () => {
+        setNext(next + 8);
+    };
+
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //         // Simulate a delay to mimic the loading process
+  //         await new Promise(resolve => setTimeout(resolve, 1000));
+  //         setLoad(false);
+  //     };
+  //     fetchData();
+  // }, []);
+    if (loading) {
+        return (
+            <section className="container">
+                <main className="main">
+                    <section className="home">
+                        <h1>Страница покупки</h1>
+                        <p>Давайте спроектируем место, которое вы всегда себе представляли.</p>
+                    </section>    
+                    <p>Загрузка...</p>
+                </main>
+            </section>
+        );
+    }
+
+    return(
+        <section className="container">
+            <Header/>
+            <main className="main">
+                <section className="home">
+                    <h1>Страница покупки</h1>
+                    <p>Давайте спроектируем место, которое вы всегда себе представляли.</p>
+                </section>
+                <Card product={visibleProducts}/>
+                <button className="button" onClick={loadMore} disabled={loading || visibleProducts.length >= products.length}>{loading ? 'Загрузка...' : 'Еще больше'}</button>
+            </main>
+            <Footer/>
+        </section>
+    )
 }
