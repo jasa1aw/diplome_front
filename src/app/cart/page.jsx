@@ -1,10 +1,9 @@
-
-import CartPage2 from "@/components/basket2"
+import CartPage from "@/components/basket";
 
 export default function Cart(){
     return(
         <>
-            <CartPage2/>
+            <CartPage/>
         </>
     )
 }
