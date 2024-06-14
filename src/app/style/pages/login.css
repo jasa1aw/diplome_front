@@ -1,6 +1,7 @@
 .login-page{
     display: flex;
     align-items: center;
+    height: 100%;
     gap: 250px;
 }
 .leftImg{
@@ -15,11 +16,13 @@
 .form{
     display: flex;
     flex-direction: column;
+    padding-right: 10px;
 }
 .form h1{
     color: #141718;
     font-size: 40px;
     font-weight: 500;
+    margin-bottom: 30px;
 }
 
 .form p{
@@ -67,4 +70,46 @@
     padding: 10px 0;
     font-size: 18px;
     font-weight: 500;
+}
+
+
+@media(max-width:1700px){
+    .login-page{
+        gap: 150px;
+    }
+}
+
+@media(max-width:1510px){
+    .login-page{
+        gap: 50px;
+    }
+}
+
+@media(max-width:1420px){
+    .leftImg{
+        width: 700px;
+    }
+}
+
+@media(max-width:1220px){
+    .login-page{
+        justify-content: center;
+    }
+    .leftImg{
+        display: none;
+    }
+    .form h1{
+        font-size: 50px;
+        text-align: center;
+        padding: 10px;
+    }
+}
+
+@media(max-width:500px){
+    .inputBox, .passwordBox{
+        width: 350px;
+    }
+    .form button{
+        width: 350px;
+    }
 }

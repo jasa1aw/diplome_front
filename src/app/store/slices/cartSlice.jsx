@@ -1,8 +1,8 @@
 'use client'
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const items = typeof window !== "undefined" ? localStorage.getItem('selectedProducts') : null;
-
 let initialState;
 
 if(items){

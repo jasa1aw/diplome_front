@@ -16,10 +16,6 @@
     align-items: center;
     justify-content: center;
     gap: 40px;
-    /* justify-content: space-between; */
-}
-.adminCardContainer > div{
-    /* width: calc(50% - 30px); */
 }
 
 .createProductFormContainer{

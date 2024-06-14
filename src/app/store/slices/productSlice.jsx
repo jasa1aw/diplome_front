@@ -7,6 +7,7 @@ export const productSlice = createSlice({
     initialState:{
         products:[],
         loading: false,
+        productToEdit : null
     },
     reducers:{
         setProducts:(state,action) => {
@@ -18,25 +19,17 @@ export const productSlice = createSlice({
         handleDeletedProduct:(state, action) => {
             let products = [...state.products]
             products = products.filter(item => item.id !== action.payload)
+            state.products = products;
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
+        setProductToEdit: (state, action) => {
+            state.productToEdit = action.payload;
+        },
     }
 })
-export const {setProducts, appendProducts, handleDeletedProduct, setLoading} = productSlice.actions
-
-
-
-// export const getProducts = () => async(dispatch) =>{
-//     try {
-//         const res = await axios.get(`${END_POINT}/api/product/getAllProducts`)
-//         dispatch(setProducts({products:res.data}))
-//         // console.log('res' + res);
-//     } catch (error) {
-//         alert("Ошибка при запросе post")
-//     }
-// }
+export const {setProducts, appendProducts, handleDeletedProduct, setLoading, setProductToEdit} = productSlice.actions;
 
 export const getProducts = () => async (dispatch) => {
     try {
@@ -52,17 +45,16 @@ export const getProducts = () => async (dispatch) => {
 
 export const createProduct = (data) => async(dispatch) => {
     axios.post(`${END_POINT}/api/product/addProduct`, data).then((res) => {
-        dispatch(appendProducts({products: res.data}))
-        console.log('Server response:', res.data);
+        dispatch(appendProducts({products: res.data}));
     }).catch((error) => {
         console.error('Error submitting form:', error);
     });
 }
-export const editPost = (data) => async(dispatch) =>{
+export const editProduct = (data) => async(dispatch) =>{
     try {
-        const res = await axios.put(`${END_POINT}/api/product/editProduct`, data)
-        dispatch(getProducts())
-        // console.log('res' + res);
+        const res = await axios.put(`${END_POINT}/api/product/editProduct`, data);
+        dispatch(getProducts());
+        setProductToEdit(null);
     } catch (error) {
         console.error('Error submitting form:', error);
     }
@@ -70,10 +62,8 @@ export const editPost = (data) => async(dispatch) =>{
 
 export const deleteProduct = (id) => async(dispatch) =>{
     try {
-        const res = await axios.delete(`${END_POINT}/api/post/deletePostByID/${id}`)
-        dispatch(handleDeletedProduct(id))
-        dispatch(getProducts())
-        // console.log('res' + res);
+        const res = await axios.delete(`${END_POINT}/api/product/deleteProduct/${id}`);
+        dispatch(handleDeletedProduct(id));
     } catch (error) {
         console.error('Error submitting form:', error);
     }

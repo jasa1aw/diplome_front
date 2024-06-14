@@ -6,10 +6,6 @@ footer{
     padding: 20px 180px;
     background-color: #141718;
 }
-.leftSection{
-    display: flex;
-    align-items: center;
-}
 footer h4{
     font-size: 24px;
     font-weight: 500;
@@ -22,9 +18,39 @@ footer p{
     padding-left: 30px;
 }
 
+.leftSection{
+    display: flex;
+    align-items: center;
+}
 .contactLink{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 50px;
+}
+
+
+@media(max-width:1200px){
+    footer{
+        padding: 20px;
+    }
+}
+
+@media(max-width:560px){
+    footer h4{
+        display: none;
+    }
+    footer p{
+        font-size: 18px;
+        padding-left:none;
+    }
+}
+
+@media(max-width:500px){
+    footer{
+        padding: 20px 10px;
+    }
+    .contactLink{
+        gap: 30px;
+    }
 }

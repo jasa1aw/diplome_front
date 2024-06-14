@@ -3,29 +3,30 @@ header{
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 20px 180px;    
-    position: relative !important;
+    padding: 20px 180px;
 }
 header .h4{
-    font-size: 32px;
-    font-weight: 500;
+    font-size: 40px;
+    font-weight: 700;
     color: #000;
 
 }
 .userNavigate{
     display: flex;
     align-items: center;
+    position: relative !important;
     gap: 30px;
 }
 
 .userNavigate button{
     height: 35px;
     padding: 0 15px;
+    font-size: 20px;
 }
 .userLogout{
     position: absolute;
-    top: 68px;
-    right: 180px;
+    top: 60px;
+    right: 0;
     width: 200px;
     display: flex;
     flex-direction: column;
@@ -48,4 +49,10 @@ header .h4{
 }
 .userLogout ul li:last-child{
     color: #d00000;
+}
+
+@media(max-width:1200px){
+    header{
+        padding: 20px;
+    }
 }

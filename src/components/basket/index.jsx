@@ -8,12 +8,13 @@ import { useRouter } from "next/navigation";
 import { END_POINT } from "@/config/end_point";
 
 function CartPage() {
-    const [step, setStep] = useState(1);
     const cartItems = useSelector((state) => state.cart.selectedProducts);
-    const isAuth = useSelector((state) => state.auth.isAuth)
     const dispatch = useDispatch();
     const router = useRouter();
+
+    const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [total, setTotal] = useState(0);
     const [contactDetails, setContactDetails] = useState({
         firstName: '',
         lastName: '',
@@ -21,12 +22,12 @@ function CartPage() {
         city: '',
         address: ''
     });
-    const [total, setTotal] = useState(0);
+    
 
     useEffect(() => {
         const fetchData = async () => {
             // Simulate a delay to mimic the loading process
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 500));
             setLoading(false);
         };
         fetchData();
@@ -57,19 +58,22 @@ function CartPage() {
 
         window.open(whatsappUrl, '_blank');
         alert('Сообщение отправлено');
+        router.push('/main');
         dispatch(clearCart());
         setStep(1);
-        router.push('/main');
         setTimeout(() => {
-            window.open(whatsappUrl, '_blank');
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
             alert('Сообщение отправлено');
             dispatch(clearCart());
             setStep(1);
         }, 100);
     };
 
+    
     const handleProceedToCheckout = () => {
-        if (isAuth) {
+        // console.log(isAuth);
+        const token = typeof window !== "undefined" ? localStorage.getItem('token') : null;
+        if (token) {
             setStep(2);
         } else {
             router.push('/login');
@@ -114,10 +118,8 @@ function CartPage() {
                                 <div className="productImg">
                                     <img className="imgFit" src={`${END_POINT}${item.image}`} alt="" />
                                 </div>
-                                <div className="productDesc">
-                                    <p>{item.name}</p>
-                                    <button className="removeButton" onClick={() => dispatch(removeProduct(item.id))}>X Удалить</button>
-                                </div>
+                                <p className="nameItem">{item.name}</p>
+                                <button className="removeButton" onClick={() => dispatch(removeProduct(item.id))}>X <span>Удалить</span></button>
                                 <div className="quantity">
                                     <button className="quantityButton" onClick={() => handleQuantityChange(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
                                     <span>{item.quantity}</span>

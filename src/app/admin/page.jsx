@@ -9,9 +9,32 @@ import { createProduct } from '../store/slices/productSlice';
 
 export default function Admin() {
     const currentUser = useSelector(state => state.auth.currentUser);
-    // const [isClient, setIsClient] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
+    
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [image, setImage] = useState(null);
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+            const url = URL.createObjectURL(file);
+            setImage(url);
+        }
+    };
+    
+    const Save = () => {
+        const form = new FormData();
+        form.append('image', selectedFile);
+        form.append('name', name)
+        form.append('price', price)
+        dispatch(createProduct(form))
+        router.push('/')
+    }
+
     useEffect(() => {  // Log the currentUser object to see its properties
         if (!currentUser) {
             // If there is no current user, redirect to home
@@ -21,29 +44,7 @@ export default function Admin() {
             redirect('/');
         }
     }, [currentUser, router]);
-    
 
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [image, setImage] = useState(null);
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setSelectedFile(file);
-            const url = URL.createObjectURL(file);
-            setImage(url);
-        }
-    };
-    const Save = () => {
-        const form = new FormData();
-        form.append('image', selectedFile);
-        form.append('name', name)
-        form.append('price', price)
-        dispatch(createProduct(form))
-        router.push('/main')
-    }
     if(!currentUser) return null
     return (
         <section className="container">

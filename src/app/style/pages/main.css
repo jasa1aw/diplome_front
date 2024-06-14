@@ -1,5 +1,4 @@
 .main{
-    margin: 0 180px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +18,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    width: 1440px;
+    width: 100%;
     height: 540px;
     display: flex;
     flex-direction: column;
@@ -30,7 +29,7 @@
 .home h1{
     font-size: 54px;
     font-weight: 700;
-    margin-top: 130px;
+    margin-top: 135px;
     margin-bottom: 20px;
 }
 .home p{
@@ -38,3 +37,124 @@
     font-weight: 500;
 }
 
+.loadMore{
+    margin-bottom: 30px;
+}
+
+.productSection{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding: 0 180px;
+}
+
+.productSection h2{
+    font-size: 36px;
+    font-weight: 700;
+}
+.productSection button{
+    border: none;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.feedback{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 180px;
+    margin: 50px 0;
+}
+.feedback h2{
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.feedbackCard{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.feedbackCardItem{
+    width: calc(20% + 30px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.feedbackCardItem p{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+.feedbackCardItem .client{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.feedbackCardItem .client .avatar{
+    width: 50px;
+    height: 50px;
+    background-color: #CCCCCC;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+.feedbackCardItem .client span{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+@media(max-width:1300px){
+    .feedbackCardItem{
+        width: 45%;
+    }
+}
+
+@media(max-width:1290px){
+    .productSection{
+        padding: 0 40px;
+    }
+}
+
+@media(max-width:951px){
+    .feedback{
+        padding: 0 100px;
+    }
+}
+
+@media(max-width:800px){
+    .feedback{
+        padding: 0 120px;
+    }
+    .feedbackCard{
+        justify-content: center;
+        gap: 50px;
+    }
+    .feedbackCardItem{
+        width: 100%;
+    }
+}
+
+@media(max-width:560px){
+    .home h1{
+        font-size: 45px;
+    }
+    .home p{
+        display: none;
+    }
+}
+
+@media(max-width:560px){
+    .productSection{
+        padding: 0 10px;
+    }
+    .feedback{
+        padding: 0 20px;
+    }
+}

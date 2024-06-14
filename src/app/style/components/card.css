@@ -1,15 +1,18 @@
 .cardContainer{
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
     margin: 50px 0;
+    padding: 0 180px;
 }
 
 .cardItem{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .cardImg{
@@ -17,10 +20,9 @@
     height: 370px;
     display: flex;
     justify-content: center;
-    margin-bottom: 12px;
 }
 .addBasket{
-    width: 100%;
+    width: 100% !important;
 }
 .editProduct{
     width: 100%;
@@ -44,12 +46,23 @@
     margin-bottom: 10px;
 }
 .cardDescription h4{
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     color: #141718;
 }
 .cardDescription p{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: #141718;
+}
+
+@media(max-width:1650px){
+    .cardContainer{
+        padding: 0 150px;
+    }
+}
+@media(max-width:1300px){
+    .cardContainer{
+        padding: 0;;
+    }
 }
